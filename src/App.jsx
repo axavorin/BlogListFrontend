@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import Login from './components/Login'
 import CreateBlog from './components/CreateBlog'
+import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -9,13 +10,17 @@ const App = () => {
   const [token, setToken] = useState('')
   const [blogs, setBlogs] = useState([])
   const [name, setName] = useState('')
-  const [created, setCreated] = useState(0)
+  const [changed, setChanged] = useState(0)
+
+  const blogCreateRef = useRef()
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
+    blogService.getAll().then(blogs => {
+      blogs.sort((a, b) => a.likes >= b.likes ? -1 : 1)
+      setBlogs(blogs)
+    }
     )
-  }, [created])
+  }, [changed])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loginData')
@@ -33,7 +38,7 @@ const App = () => {
     }
     setToken(response.token)
     setName(response.name)
-    window.localStorage.setItem('loginData', JSON.stringify({name, token}))
+    window.localStorage.setItem('loginData', JSON.stringify({ name: response.name, token: response.token }))
     return response
   }
 
@@ -44,24 +49,26 @@ const App = () => {
   }
 
   const handleCreate = async (title, author, url) => {
+    blogCreateRef.current.toggleVisibility()
     const response = await blogService.addBlog(title, author, url, token)
-    setCreated(created + 1)
+    setChanged(changed + 1)
     return response
   }
 
   return (
     <div>
       {token === ''
-      ? <Login onLogin={handleLogin} />
-      : 
+        ? <Login onLogin={handleLogin} />
+        :
         <div>
           <h2>blogs</h2>
           <div>{name} logged in <button onClick={handleLogout}>logout</button> </div>
 
-          <CreateBlog onCreate={handleCreate}/>
-
+          <Togglable buttonLabel='create' ref={blogCreateRef}>
+            <CreateBlog onCreate={handleCreate} />
+          </Togglable>
           {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
+            <Blog key={blog.id} blog={blog} name={name} token={token} onChange={() => setChanged(changed + 1)} />
           )}
         </div>
       }
