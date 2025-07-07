@@ -42,7 +42,7 @@ const CreateBlog = ({ onCreate }) => {
   )
 }
 
-CreateBlog.PropTypes = {
+CreateBlog.propTypes = {
   onCreate: PropTypes.func
 }
 

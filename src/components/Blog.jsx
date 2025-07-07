@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog, onChange, name, token }) => {
+const Blog = ({ blog, onChange, onLike, name, token }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -13,8 +13,7 @@ const Blog = ({ blog, onChange, name, token }) => {
   const [showDetail, setShowDetail] = useState(false)
 
   const handleAddLike = () => {
-    onChange()
-    blogService.addLike(blog.id)
+    onLike(blog.id)
   }
   const handleDelete = async () => {
     if (window.confirm(`Remove blog ${blog.title} ${blog.author}?`)) {
@@ -27,8 +26,8 @@ const Blog = ({ blog, onChange, name, token }) => {
       {blog.title} {blog.author}
       <button onClick={() => setShowDetail(!showDetail)}>{showDetail ? 'hide' : 'show'}</button>
       {showDetail &&
-        <div>
-          <div>{blog.url}</div>
+        <div className='blogDetails'>
+          <div className='blogUrl'>{blog.url}</div>
           <div>
             likes {blog.likes || 0}
             <button onClick={handleAddLike}>like</button>

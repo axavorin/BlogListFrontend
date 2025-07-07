@@ -55,6 +55,11 @@ const App = () => {
     return response
   }
 
+  const handleLike = async (id) => {
+    await blogService.addLike(id)
+    setChanged(changed + 1)
+  }
+
   return (
     <div>
       {token === ''
@@ -68,7 +73,7 @@ const App = () => {
             <CreateBlog onCreate={handleCreate} />
           </Togglable>
           {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} name={name} token={token} onChange={() => setChanged(changed + 1)} />
+            <Blog key={blog.id} blog={blog} name={name} token={token} onLike={(id) => handleLike(id)} onChange={() => setChanged(changed+1)} />
           )}
         </div>
       }
