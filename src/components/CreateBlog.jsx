@@ -34,10 +34,10 @@ const CreateBlog = ({ onCreate }) => {
   return (
     <form>
       {notify && <Notification message={`a new blog ${created.title} by ${created.author}`} />}
-      <InputField label='title' value={title} onChange={handleTitle} />
-      <InputField label='author' value={author} onChange={handleAuthor} />
-      <InputField label='url' value={url} onChange={handleUrl} />
-      <button type='submit' onClick={handleCreate}>create</button>
+      <InputField label='title' value={title} onChange={handleTitle} id='blog-title' />
+      <InputField label='author' value={author} onChange={handleAuthor} id='blog-author' />
+      <InputField label='url' value={url} onChange={handleUrl} id='blog-url' />
+      <button type='submit' onClick={handleCreate} id='blog-submit'>create</button>
     </form>
   )
 }

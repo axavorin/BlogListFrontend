@@ -35,7 +35,7 @@ const addLike = async (id) => {
 
   const blogData = {
     ...response.data,
-    likes: response.data.likes + 1,
+    likes: (response.data.likes || 0) + 1,
     creator: response.data.creator.id
   }
 

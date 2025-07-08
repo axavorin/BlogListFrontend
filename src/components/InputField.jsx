@@ -1,6 +1,6 @@
-const InputField = ({ label, value, onChange, type }) => {
+const InputField = ({ label, value, onChange, type, id }) => {
   return (
-    <div>
+    <div id={id}>
       {label}: <input value={value} onChange={onChange} type={type} />
     </div>
   )

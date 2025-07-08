@@ -27,9 +27,9 @@ const Login = ({ onLogin }) => {
     <form>
       <h1>log in to application</h1>
       {notify && <Notification message={'wrong username or password'} />}
-      <InputField label="username" value={username} onChange={handleUsername} />
-      <InputField label="password" value={password} onChange={handlePassword} type="password" />
-      <button type='submit' onClick={handleLogin}>login</button>
+      <InputField label="username" value={username} onChange={handleUsername} id='login-username' />
+      <InputField label="password" value={password} onChange={handlePassword} type="password" id='login-password' />
+      <button id='login-submit' type='submit' onClick={handleLogin}>login</button>
     </form>
   )
 }

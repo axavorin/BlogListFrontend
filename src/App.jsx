@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(blogs => {
-      blogs.sort((a, b) => a.likes >= b.likes ? -1 : 1)
+      blogs.sort((a, b) => (a.likes || 0) > (b.likes || 0) ? -1 : 1)
       setBlogs(blogs)
     }
     )

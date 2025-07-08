@@ -24,16 +24,16 @@ const Blog = ({ blog, onChange, onLike, name, token }) => {
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author}
-      <button onClick={() => setShowDetail(!showDetail)}>{showDetail ? 'hide' : 'show'}</button>
+      <button onClick={() => setShowDetail(!showDetail)} className='blog-show'>{showDetail ? 'hide' : 'show'}</button>
       {showDetail &&
         <div className='blogDetails'>
           <div className='blogUrl'>{blog.url}</div>
           <div>
-            likes {blog.likes || 0}
-            <button onClick={handleAddLike}>like</button>
+            <span className='likes-view'>likes {blog.likes || 0}</span>
+            <button onClick={handleAddLike} className='like-btn'>like</button>
           </div>
           <div>{blog.creator.name}</div>
-          {name === blog.creator.name && <button onClick={handleDelete}>delete</button>}
+          {name === blog.creator.name && <button onClick={handleDelete} className='blogDelete'>delete</button>}
         </div>
       }
     </div>
