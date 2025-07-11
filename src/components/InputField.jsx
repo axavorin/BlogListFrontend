@@ -1,8 +1,13 @@
+import { Form, FormControl } from 'react-bootstrap'
+
 const InputField = ({ label, value, onChange, type, id }) => {
   return (
-    <div id={id}>
-      {label}: <input value={value} onChange={onChange} type={type} />
-    </div>
+    <Form.Group id={id}>
+      <Form.Label>
+        {label}
+      </Form.Label>
+      <FormControl value={value} onChange={onChange} type={type} />
+    </Form.Group>
   )
 }
 

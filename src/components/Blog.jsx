@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import blogService from '../services/blogs'
+import { Button } from 'react-bootstrap'
 
 const Blog = ({ blog, onChange, onLike, name, token }) => {
   const blogStyle = {
@@ -7,7 +8,7 @@ const Blog = ({ blog, onChange, onLike, name, token }) => {
     paddingLeft: 2,
     border: 'solid',
     borderWidth: 1,
-    marginBottom: 5
+    marginBottom: 5,
   }
 
   const [showDetail, setShowDetail] = useState(false)
@@ -22,21 +23,34 @@ const Blog = ({ blog, onChange, onLike, name, token }) => {
     }
   }
   return (
-    <div style={blogStyle}>
-      {blog.title} {blog.author}
-      <button onClick={() => setShowDetail(!showDetail)} className='blog-show'>{showDetail ? 'hide' : 'show'}</button>
-      {showDetail &&
-        <div className='blogDetails'>
-          <div className='blogUrl'>{blog.url}</div>
-          <div>
-            <span className='likes-view'>likes {blog.likes || 0}</span>
-            <button onClick={handleAddLike} className='like-btn'>like</button>
+    <tr style={blogStyle}>
+      <td>
+        {blog.title} {blog.author}
+        <Button
+          onClick={() => setShowDetail(!showDetail)}
+          className='blog-show'
+        >
+          {showDetail ? 'hide' : 'show'}
+        </Button>
+        {showDetail && (
+          <div className='blogDetails'>
+            <div className='blogUrl'>{blog.url}</div>
+            <div>
+              <span className='likes-view'>likes {blog.likes || 0}</span>
+              <Button onClick={handleAddLike} className='like-btn'>
+                like
+              </Button>
+            </div>
+            <div>{blog.creator.name}</div>
+            {name === blog.creator.name && (
+              <Button onClick={handleDelete} className='blogDelete'>
+                delete
+              </Button>
+            )}
           </div>
-          <div>{blog.creator.name}</div>
-          {name === blog.creator.name && <button onClick={handleDelete} className='blogDelete'>delete</button>}
-        </div>
-      }
-    </div>
+        )}
+      </td>
+    </tr>
   )
 }
 

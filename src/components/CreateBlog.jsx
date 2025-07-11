@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import InputField from "./InputField"
+import InputField from './InputField'
 import Notification from './Notification'
+import { Button, Form } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 
 const CreateBlog = ({ onCreate }) => {
@@ -32,18 +33,34 @@ const CreateBlog = ({ onCreate }) => {
   }
 
   return (
-    <form>
-      {notify && <Notification message={`a new blog ${created.title} by ${created.author}`} />}
-      <InputField label='title' value={title} onChange={handleTitle} id='blog-title' />
-      <InputField label='author' value={author} onChange={handleAuthor} id='blog-author' />
+    <Form>
+      {notify && (
+        <Notification
+          message={`a new blog ${created.title} by ${created.author}`}
+        />
+      )}
+      <InputField
+        label='title'
+        value={title}
+        onChange={handleTitle}
+        id='blog-title'
+      />
+      <InputField
+        label='author'
+        value={author}
+        onChange={handleAuthor}
+        id='blog-author'
+      />
       <InputField label='url' value={url} onChange={handleUrl} id='blog-url' />
-      <button type='submit' onClick={handleCreate} id='blog-submit'>create</button>
-    </form>
+      <Button type='submit' onClick={handleCreate} id='blog-submit'>
+        create
+      </Button>
+    </Form>
   )
 }
 
 CreateBlog.propTypes = {
-  onCreate: PropTypes.func
+  onCreate: PropTypes.func,
 }
 
 export default CreateBlog

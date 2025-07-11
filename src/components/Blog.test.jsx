@@ -3,14 +3,13 @@ import userEvent from '@testing-library/user-event'
 import Blog from './Blog'
 
 describe('<Blog>', () => {
-
   test('renders title and author but not url and likes', async () => {
     const blog = {
-      title: "Title",
-      author: "Author",
-      url: "urllink",
+      title: 'Title',
+      author: 'Author',
+      url: 'urllink',
       likes: 0,
-      creator: "a2sd1f5a3s1df21asd"
+      creator: 'a2sd1f5a3s1df21asd',
     }
 
     const { container } = render(<Blog blog={blog} name='username' />)
@@ -22,13 +21,13 @@ describe('<Blog>', () => {
     expect(url).toBeNull()
   })
 
-  test('blog\'s url and likes shown when button pressed', async () => {
+  test("blog's url and likes shown when button pressed", async () => {
     const blog = {
-      title: "Title",
-      author: "Author",
-      url: "urllink",
+      title: 'Title',
+      author: 'Author',
+      url: 'urllink',
       likes: 0,
-      creator: "a2sd1f5a3s1df21asd"
+      creator: 'a2sd1f5a3s1df21asd',
     }
 
     const { container } = render(<Blog blog={blog} name='username' />)
@@ -43,11 +42,11 @@ describe('<Blog>', () => {
 
   test('pressing likes button twice calls event handler twice', async () => {
     const blog = {
-      title: "Title",
-      author: "Author",
-      url: "urllink",
+      title: 'Title',
+      author: 'Author',
+      url: 'urllink',
       likes: 0,
-      creator: "a2sd1f5a3s1df21asd"
+      creator: 'a2sd1f5a3s1df21asd',
     }
 
     const mockHandler = vi.fn()

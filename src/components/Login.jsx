@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import InputField from './InputField'
 import Notification from './Notification'
+import { Button } from 'react-bootstrap'
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('')
@@ -27,9 +28,22 @@ const Login = ({ onLogin }) => {
     <form>
       <h1>log in to application</h1>
       {notify && <Notification message={'wrong username or password'} />}
-      <InputField label="username" value={username} onChange={handleUsername} id='login-username' />
-      <InputField label="password" value={password} onChange={handlePassword} type="password" id='login-password' />
-      <button id='login-submit' type='submit' onClick={handleLogin}>login</button>
+      <InputField
+        label='username'
+        value={username}
+        onChange={handleUsername}
+        id='login-username'
+      />
+      <InputField
+        label='password'
+        value={password}
+        onChange={handlePassword}
+        type='password'
+        id='login-password'
+      />
+      <Button id='login-submit' type='submit' onClick={handleLogin}>
+        login
+      </Button>
     </form>
   )
 }

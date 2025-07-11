@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import Login from './components/Login'
 import CreateBlog from './components/CreateBlog'
 import Togglable from './components/Togglable'
+import { Table, Button } from 'react-bootstrap'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -15,11 +16,10 @@ const App = () => {
   const blogCreateRef = useRef()
 
   useEffect(() => {
-    blogService.getAll().then(blogs => {
-      blogs.sort((a, b) => (a.likes || 0) > (b.likes || 0) ? -1 : 1)
+    blogService.getAll().then((blogs) => {
+      blogs.sort((a, b) => ((a.likes || 0) > (b.likes || 0) ? -1 : 1))
       setBlogs(blogs)
-    }
-    )
+    })
   }, [changed])
 
   useEffect(() => {
@@ -38,7 +38,10 @@ const App = () => {
     }
     setToken(response.token)
     setName(response.name)
-    window.localStorage.setItem('loginData', JSON.stringify({ name: response.name, token: response.token }))
+    window.localStorage.setItem(
+      'loginData',
+      JSON.stringify({ name: response.name, token: response.token }),
+    )
     return response
   }
 
@@ -61,22 +64,35 @@ const App = () => {
   }
 
   return (
-    <div>
-      {token === ''
-        ? <Login onLogin={handleLogin} />
-        :
+    <div className='container'>
+      {token === '' ? (
+        <Login onLogin={handleLogin} />
+      ) : (
         <div>
           <h2>blogs</h2>
-          <div>{name} logged in <button onClick={handleLogout}>logout</button> </div>
+          <div>
+            {name} logged in <Button onClick={handleLogout}>logout</Button>
+          </div>
 
           <Togglable buttonLabel='create' ref={blogCreateRef}>
             <CreateBlog onCreate={handleCreate} />
           </Togglable>
-          {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} name={name} token={token} onLike={(id) => handleLike(id)} onChange={() => setChanged(changed+1)} />
-          )}
+          <Table>
+            <tbody>
+              {blogs.map((blog) => (
+                <Blog
+                  key={blog.id}
+                  blog={blog}
+                  name={name}
+                  token={token}
+                  onLike={(id) => handleLike(id)}
+                  onChange={() => setChanged(changed + 1)}
+                />
+              ))}
+            </tbody>
+          </Table>
         </div>
-      }
+      )}
     </div>
   )
 }
